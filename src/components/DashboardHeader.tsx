@@ -17,6 +17,7 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface DashboardHeaderProps {
   userName?: string;
@@ -24,7 +25,6 @@ interface DashboardHeaderProps {
   avatarUrl?: string;
   onLogout?: () => void;
   onSettings?: () => void;
-  onProfile?: () => void;
 }
 
 const DashboardHeader = ({
@@ -33,13 +33,14 @@ const DashboardHeader = ({
   avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
   onLogout = () => {},
   onSettings = () => {},
-  onProfile = () => {},
 }: DashboardHeaderProps) => {
   return (
     <header className="w-full h-[72px] px-6 border-b bg-white flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <Calendar className="w-6 h-6 text-blue-600" />
-        <h1 className="text-xl font-semibold">EyeCare Portal</h1>
+        <Link to="/" className="flex items-center gap-2">
+          <Calendar className="w-6 h-6 text-blue-600" />
+          <h1 className="text-xl font-semibold">Dr. Smith's Eye Care</h1>
+        </Link>
       </div>
 
       <div className="flex items-center gap-4">
@@ -67,9 +68,11 @@ const DashboardHeader = ({
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={onProfile}>
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+            <DropdownMenuItem asChild>
+              <Link to="/profile" className="flex items-center cursor-pointer">
+                <User className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={onSettings}>
               <Settings className="mr-2 h-4 w-4" />
