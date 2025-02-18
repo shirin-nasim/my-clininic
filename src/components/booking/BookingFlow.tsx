@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import TimeSlotPicker from "./TimeSlotPicker";
 import BookingSummary from "./BookingSummary";
+import PaymentDialog from "../payment/PaymentDialog";
 
 interface BookingFlowProps {
   serviceType?: "consultation" | "test";
@@ -24,7 +25,7 @@ const BookingFlow = ({
 }: BookingFlowProps) => {
   const [currentStep, setCurrentStep] = useState<"slot" | "summary">("slot");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
-  const [selectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const handleSlotSelect = (time: string) => {
     setSelectedSlot(time);
@@ -40,7 +41,14 @@ const BookingFlow = ({
     setCurrentStep("slot");
   };
 
+  const [showPayment, setShowPayment] = useState(false);
+
   const handleConfirm = () => {
+    setShowPayment(true);
+  };
+
+  const handlePaymentSuccess = () => {
+    setShowPayment(false);
     onComplete();
   };
 
@@ -61,6 +69,7 @@ const BookingFlow = ({
             date={selectedDate}
             onSelectSlot={handleSlotSelect}
             selectedSlot={selectedSlot}
+            onDateSelect={setSelectedDate}
           />
           <div className="flex justify-between mt-4">
             <Button variant="outline" onClick={onCancel}>
@@ -88,6 +97,16 @@ const BookingFlow = ({
           />
         </TabsContent>
       </Tabs>
+
+      <PaymentDialog
+        open={showPayment}
+        onClose={() => setShowPayment(false)}
+        onSuccess={handlePaymentSuccess}
+        amount={1}
+        serviceType={
+          serviceType === "consultation" ? "Doctor Consultation" : testName
+        }
+      />
     </Card>
   );
 };

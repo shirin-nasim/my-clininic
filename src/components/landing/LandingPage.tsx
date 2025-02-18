@@ -35,7 +35,7 @@ const LandingPage = () => {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/profile">
+                <Link to="/profile" className="flex items-center">
                   <User className="mr-2 h-5 w-5" />
                   View Full Profile
                 </Link>

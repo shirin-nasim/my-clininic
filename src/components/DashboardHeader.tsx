@@ -44,6 +44,9 @@ const DashboardHeader = ({
       </div>
 
       <div className="flex items-center gap-4">
+        <Button variant="ghost" asChild>
+          <Link to="/contact">Contact</Link>
+        </Button>
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="w-5 h-5" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
@@ -69,8 +72,8 @@ const DashboardHeader = ({
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link to="/profile" className="flex items-center cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
+              <Link to="/profile" className="flex items-center gap-2 w-full">
+                <User className="h-4 w-4" />
                 <span>Profile</span>
               </Link>
             </DropdownMenuItem>

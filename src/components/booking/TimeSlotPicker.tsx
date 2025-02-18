@@ -18,6 +18,7 @@ interface TimeSlotPickerProps {
   slots?: TimeSlot[];
   onSelectSlot?: (time: string) => void;
   selectedSlot?: string;
+  onDateSelect?: (date: Date | undefined) => void;
 }
 
 const TimeSlotPicker = ({
@@ -36,13 +37,24 @@ const TimeSlotPicker = ({
   ],
   onSelectSlot = () => {},
   selectedSlot = "",
+  onDateSelect = (date: Date | undefined) => {},
 }: TimeSlotPickerProps) => {
   return (
     <Card className="p-6 bg-white w-full max-w-[440px]">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold">
+      <div className="mb-4 space-y-4">
+        <h3 className="text-lg font-semibold">Select Date & Time</h3>
+        <div className="p-3 border rounded-lg bg-gray-50">
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={onDateSelect}
+            className="rounded-md border"
+            disabled={(date) => date < new Date() || date.getDay() === 0}
+          />
+        </div>
+        <h4 className="font-medium">
           Available Time Slots for {date.toLocaleDateString()}
-        </h3>
+        </h4>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
